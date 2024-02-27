@@ -27,7 +27,7 @@ def duplicate_entries_for_rsid(obj):
 def process_file(file_info):
     input_file, input_dir, output_dir = file_info
     input_path = os.path.join(input_dir, input_file)
-    output_filename = re.sub(r'\.gz', '.jsonl.gz')
+    output_filename = re.sub(r'\.gz', '.jsonl.gz', input_file)
     output_path = os.path.join(output_dir, output_filename)
     with gzip.open(input_path, 'rb') as gz_in, gzip.open(output_path, mode='wb') as gz_out:
         reader = jsonlines.Reader(gz_in)
