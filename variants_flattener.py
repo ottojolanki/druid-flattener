@@ -40,9 +40,9 @@ def process_file(file_info):
 
 def process_directory(input_dir, output_dir):
     files = [f for f in os.listdir(input_dir) if f.endswith('.gz')]
-    file_paths = [(file, input_dir, output_dir) for file in files]
+    file_infos = [(file, input_dir, output_dir) for file in files]
     with Pool(cpu_count()) as pool:
-        pool.map(process_file, file_paths)
+        pool.map(process_file, file_infos)
 
 def main():
     parser = argparse.ArgumentParser()
