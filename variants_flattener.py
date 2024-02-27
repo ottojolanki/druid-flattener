@@ -1,4 +1,5 @@
 import argparse
+import gzip
 import json
 
 import jsonlines
@@ -26,7 +27,9 @@ def duplicate_entries_for_rsid(obj):
     return duplicated_entries
 
 def process_jsonl(input_file, output_file):
-    with jsonlines.open(input_file) as reader, jsonlines.open(output_file, mode='w') as writer:
+    with gzip.open(input_file, 'rb') as gz_in, gzip.open(output_file, mode='wb') as gz_out:
+        reader = jsonlines.Reader(gz_in)
+        writer = jsonlines.Writer(gz_out)
         for obj in reader:
             # First, flatten the record
             flattened_obj = flatten_record(obj)
